@@ -5,13 +5,15 @@ $(document).ready(function() {
   $(".images").hide();
   CreateButtons();
   function CreateButtons() {
+    $(".main").empty();
     for (topic of topics) {
       $(".main").append(
         '<button class="btn btn-lg btn-success topic">' + topic + "</button>"
       );
     }
   }
-  $(".topic").click(function() {
+  $(document).on("click", ".topic", function() {
+    console.log("topic fired");
     still_images = [];
     gif_images = [];
     $(".images").hide();
@@ -36,7 +38,7 @@ $(document).ready(function() {
       $(".images").show();
     }, 300);
   });
-  $(".giphy-img").click(function(e) {
+  $(".giphy-img").on("click", function(e) {
     if ($(this).attr("state") === "on") {
       $(this).attr("src", still_images[$(this).attr("id")]);
       $(this).attr("state", "off");
@@ -44,5 +46,13 @@ $(document).ready(function() {
       $(this).attr("src", gif_images[$(this).attr("id")]);
       $(this).attr("state", "on");
     }
+  });
+  $("#SubBtn").on("click", function(event) {
+    event.preventDefault();
+    var newtopic = $("#AddMovie")
+      .val()
+      .trim();
+    topics.push(newtopic);
+    CreateButtons();
   });
 });
