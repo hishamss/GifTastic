@@ -1,0 +1,14 @@
+html,
+body {
+  margin: 0 0;
+  padding: 5px;
+  height: 100%;
+}
+
+.main button {
+  margin: auto 5px;
+}
+
+.row {
+  margin-bottom: 2px;
+}
