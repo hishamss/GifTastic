@@ -19,7 +19,6 @@ $(document).ready(function() {
       "https://api.giphy.com/v1/gifs/search?api_key=4Oz89PXB8NoqCXfKwzRoFETCFIhc9bLQ&q=" +
       $(this).text() +
       "&limit=10";
-    console.log(queryURL);
     $.ajax({
       url: queryURL,
       method: "GET"
@@ -27,6 +26,7 @@ $(document).ready(function() {
       console.log(response);
       for (i = 0; i < response.data.length; i++) {
         $("#" + i).attr("src", response.data[i].images.downsized.url);
+        $("#h" + i).html("<h2>" + response.data[i].rating + "</h2>");
         gif_images.push(response.data[i].images.downsized.url);
 
         still_images.push(response.data[i].images.downsized_still.url);
