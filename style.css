@@ -10,5 +10,9 @@ body {
 }
 
 .row {
-  margin-bottom: 2px;
+  margin-bottom: 5px;
+}
+
+.card {
+  height: 500px;
 }

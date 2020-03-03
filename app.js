@@ -26,7 +26,7 @@ $(document).ready(function() {
       console.log(response);
       for (i = 0; i < response.data.length; i++) {
         $("#" + i).attr("src", response.data[i].images.downsized.url);
-        $("#h" + i).html("<h2>" + response.data[i].rating + "</h2>");
+        $("#h" + i).html("<h2>Rating: " + response.data[i].rating + "</h2>");
         gif_images.push(response.data[i].images.downsized.url);
 
         still_images.push(response.data[i].images.downsized_still.url);
