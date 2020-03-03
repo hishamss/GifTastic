@@ -24,9 +24,10 @@ $(document).ready(function() {
       url: queryURL,
       method: "GET"
     }).then(function(response) {
+      console.log(response);
       for (i = 0; i < response.data.length; i++) {
-        $("#" + i).attr("src", response.data[i].images.original.url);
-        gif_images.push(response.data[i].images.original.url);
+        $("#" + i).attr("src", response.data[i].images.downsized.url);
+        gif_images.push(response.data[i].images.downsized.url);
 
         still_images.push(response.data[i].images.downsized_still.url);
       }
