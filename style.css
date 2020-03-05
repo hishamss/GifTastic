@@ -12,3 +12,7 @@ body {
 .row {
   margin-bottom: 5px;
 }
+
+.card-body {
+  height: 250px;
+}
