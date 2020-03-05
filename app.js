@@ -27,11 +27,11 @@ $(document).ready(function() {
     }).then(function(response) {
       console.log(response);
       for (i = 0; i < response.data.length; i++) {
-        $("#" + i).attr("src", response.data[i].images.downsized.url);
+        $("#" + i).attr("src", response.data[i].images.fixed_height.url);
         $("#h" + i).html("<h2>Rating: " + response.data[i].rating + "</h2>");
-        gif_images.push(response.data[i].images.downsized.url);
+        gif_images.push(response.data[i].images.fixed_height.url);
 
-        still_images.push(response.data[i].images.downsized_still.url);
+        still_images.push(response.data[i].images.fixed_height_still.url);
       }
     });
     setTimeout(function() {
@@ -39,19 +39,17 @@ $(document).ready(function() {
     }, 300);
   });
   $(".giphy-img").on("click", function(e) {
-    if ($(this).attr("state") === "on") {
+    if ($(this).attr("data-state") === "on") {
       $(this).attr("src", still_images[$(this).attr("id")]);
-      $(this).attr("state", "off");
-    } else if ($(this).attr("state") === "off") {
+      $(this).attr("data-state", "off");
+    } else {
       $(this).attr("src", gif_images[$(this).attr("id")]);
-      $(this).attr("state", "on");
+      $(this).attr("data-state", "on");
     }
   });
   $("#SubBtn").on("click", function(event) {
     event.preventDefault();
-    var newtopic = $("#AddMovie")
-      .val()
-      .trim();
+    var newtopic = $("#AddMovie").val();
     topics.push(newtopic);
     CreateButtons();
   });
