@@ -13,7 +13,6 @@ $(document).ready(function() {
     }
   }
   $(document).on("click", ".topic", function() {
-    console.log("topic fired");
     still_images = [];
     gif_images = [];
     $(".images").hide();
@@ -28,7 +27,9 @@ $(document).ready(function() {
       console.log(response);
       for (i = 0; i < response.data.length; i++) {
         $("#" + i).attr("src", response.data[i].images.fixed_height.url);
-        $("#h" + i).html("<h2>Rating: " + response.data[i].rating + "</h2>");
+        $("#h" + i).html(
+          "<h2>Rating: " + response.data[i].rating.toUpperCase() + "</h2>"
+        );
         gif_images.push(response.data[i].images.fixed_height.url);
 
         still_images.push(response.data[i].images.fixed_height_still.url);
