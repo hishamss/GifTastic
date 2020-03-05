@@ -1,11 +1,12 @@
 topics = ["dog", "cat", "bird", "frog"];
-still_images = [];
-gif_images = [];
+// still_images = [];
+// gif_images = [];
 ResArray = [];
 TenMoreTimes = 0;
 IsTopicClicked = false;
 ActiveTopic = "";
 offset = 0;
+count = 0;
 $(document).ready(function() {
   // $(".images").hide();
   CreateButtons();
@@ -19,6 +20,7 @@ $(document).ready(function() {
   }
   $(document).on("click", ".topic", function() {
     offset = 0;
+    count = 0;
     IsTopicClicked = true;
     ActiveTopic = $(this).text();
     ApiRequest($(this).text(), offset);
@@ -30,34 +32,29 @@ $(document).ready(function() {
           ResArray.data[i].rating.toUpperCase() +
           '</h2></div><div class="card-body"><img class="img-fluid img-thumbnail giphy-img" src="' +
           ResArray.data[i].images.fixed_height.url +
-          '" data-state="on" id="' +
-          i +
+          '" data-state="on" data-animate="' +
+          ResArray.data[i].images.fixed_height.url +
+          '" data-still="' +
+          ResArray.data[i].images.fixed_height_still.url +
           '"/></div></div></div><div class="col-md-6"><div class="card"><div class="card-header"><h2>Rating: ' +
           ResArray.data[i + 1].rating.toUpperCase() +
           '</h2></div><div class="card-body"><img class="img-fluid img-thumbnail giphy-img" src="' +
           ResArray.data[i + 1].images.fixed_height.url +
-          '" data-state="on" id="' +
-          parseInt(i + 1) +
+          '" data-state="on"  data-animate="' +
+          ResArray.data[i + 1].images.fixed_height.url +
+          '" data-still="' +
+          ResArray.data[i + 1].images.fixed_height_still.url +
           '"/></div></div></div></div>'
       );
-      gif_images.push(ResArray.data[i].images.fixed_height.url);
-
-      still_images.push(ResArray.data[i].images.fixed_height_still.url);
-      gif_images.push(ResArray.data[i + 1].images.fixed_height.url);
-
-      still_images.push(ResArray.data[i + 1].images.fixed_height_still.url);
     }
-    // setTimeout(function() {
-    //   $(".images").show();
-    // }, 300);
   }
 
   $(document).on("click", ".giphy-img", function() {
     if ($(this).attr("data-state") === "on") {
-      $(this).attr("src", still_images[$(this).attr("id")]);
+      $(this).attr("src", $(this).attr("data-still"));
       $(this).attr("data-state", "off");
     } else {
-      $(this).attr("src", gif_images[$(this).attr("id")]);
+      $(this).attr("src", $(this).attr("data-animate"));
       $(this).attr("data-state", "on");
     }
   });
@@ -76,10 +73,10 @@ $(document).ready(function() {
     }
   });
   function ApiRequest(topic, offs) {
-    still_images = [];
-    gif_images = [];
     $(".images").hide();
     if (offs == 0) {
+      still_images = [];
+      gif_images = [];
       $(".images").text("");
     }
 
@@ -94,7 +91,6 @@ $(document).ready(function() {
       url: queryURL,
       method: "GET"
     }).then(function(response) {
-      console.log(response);
       ResArray = response;
       DisplayImages();
       $(".images").show();
