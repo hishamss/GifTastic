@@ -1,9 +1,11 @@
-var topics = ["dog", "cat", "bird", "frog"];
-var still_images = [];
-var gif_images = [];
-var ResArray = [];
+topics = ["dog", "cat", "bird", "frog"];
+still_images = [];
+gif_images = [];
+ResArray = [];
 TenMoreTimes = 0;
 IsTopicClicked = false;
+ActiveTopic = "";
+offset = 0;
 $(document).ready(function() {
   // $(".images").hide();
   CreateButtons();
@@ -16,28 +18,13 @@ $(document).ready(function() {
     }
   }
   $(document).on("click", ".topic", function() {
+    offset = 0;
     IsTopicClicked = true;
-    TenMoreTimes = 0;
-    still_images = [];
-    gif_images = [];
-    $(".images").hide();
-    $(".images").text("");
-    var queryURL =
-      "https://api.giphy.com/v1/gifs/search?api_key=4Oz89PXB8NoqCXfKwzRoFETCFIhc9bLQ&q=" +
-      $(this).text() +
-      "&limit=20";
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    }).then(function(response) {
-      console.log(response);
-      ResArray = response;
-      DisplayImages(0, 10);
-      $(".images").show();
-    });
+    ActiveTopic = $(this).text();
+    ApiRequest($(this).text(), offset);
   });
-  function DisplayImages(count, limit) {
-    for (i = count; i < limit; i = i + 2) {
+  function DisplayImages() {
+    for (i = 0; i < ResArray.data.length; i = i + 2) {
       $(".images").append(
         '<div class="row"><div class="col-md-6"><div class="card"><div class="card-header"><h2>Rating: ' +
           ResArray.data[i].rating.toUpperCase() +
@@ -81,12 +68,36 @@ $(document).ready(function() {
     CreateButtons();
   });
   $("#TenMore").on("click", function() {
-    console.log("here");
-    if (TenMoreTimes < 1 && IsTopicClicked) {
-      DisplayImages(10, 20);
-      TenMoreTimes++;
+    if (IsTopicClicked) {
+      offset = offset + 10;
+      ApiRequest(ActiveTopic, offset);
     } else {
       alert("No GIFs to Add");
     }
   });
+  function ApiRequest(topic, offs) {
+    still_images = [];
+    gif_images = [];
+    $(".images").hide();
+    if (offs == 0) {
+      $(".images").text("");
+    }
+
+    var queryURL =
+      "https://api.giphy.com/v1/gifs/search?api_key=4Oz89PXB8NoqCXfKwzRoFETCFIhc9bLQ&q=" +
+      topic +
+      "&offset=" +
+      offs +
+      "&limit=10";
+
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(function(response) {
+      console.log(response);
+      ResArray = response;
+      DisplayImages();
+      $(".images").show();
+    });
+  }
 });
