@@ -60,9 +60,27 @@ $(document).ready(function() {
   });
   $("#SubBtn").on("click", function(event) {
     event.preventDefault();
-    var newtopic = $("#AddMovie").val();
-    topics.push(newtopic);
-    CreateButtons();
+    if ($("#AddMovie").val() !== "") {
+      var queryURL =
+        "https://api.giphy.com/v1/gifs/search?api_key=4Oz89PXB8NoqCXfKwzRoFETCFIhc9bLQ&q=" +
+        $("#AddMovie").val();
+      +"&limit=1";
+
+      $.ajax({
+        url: queryURL,
+        method: "GET"
+      }).then(function(response) {
+        if (response.data.length !== 0) {
+          var newtopic = $("#AddMovie").val();
+          topics.push(newtopic);
+          CreateButtons();
+        } else {
+          alert("Not Valid Topic");
+        }
+      });
+    } else {
+      alert("Pleaes type the name of the topic");
+    }
   });
   $("#TenMore").on("click", function() {
     if (IsTopicClicked) {
