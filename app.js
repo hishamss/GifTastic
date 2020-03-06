@@ -2,6 +2,7 @@ topics = ["dog", "cat", "bird", "frog"];
 // still_images = [];
 // gif_images = [];
 ResArray = [];
+favorite = [];
 TenMoreTimes = 0;
 IsTopicClicked = false;
 ActiveTopic = "";
@@ -30,7 +31,9 @@ $(document).ready(function() {
       $(".images").append(
         '<div class="row"><div class="col-md-6"><div class="card"><div class="card-header"><h2>Rating: ' +
           ResArray.data[i].rating.toUpperCase() +
-          '</h2></div><div class="card-body"><img class="img-fluid img-thumbnail giphy-img" src="' +
+          '</h2><button type="button" class="btn btn-secondary btn-sm favorites">Add to Favorit</button></div><div class="card-body"><h4>' +
+          ResArray.data[i].title.toUpperCase() +
+          '</h4><img class="img-fluid img-thumbnail giphy-img" src="' +
           ResArray.data[i].images.fixed_height.url +
           '" data-state="on" data-animate="' +
           ResArray.data[i].images.fixed_height.url +
@@ -38,7 +41,9 @@ $(document).ready(function() {
           ResArray.data[i].images.fixed_height_still.url +
           '"/></div></div></div><div class="col-md-6"><div class="card"><div class="card-header"><h2>Rating: ' +
           ResArray.data[i + 1].rating.toUpperCase() +
-          '</h2></div><div class="card-body"><img class="img-fluid img-thumbnail giphy-img" src="' +
+          '</h2><button type="button" class="btn btn-secondary btn-sm favorites">Add to Favorit</button></div><div class="card-body"><h4>' +
+          ResArray.data[i + 1].title.toUpperCase() +
+          '</h4><img class="img-fluid img-thumbnail giphy-img" src="' +
           ResArray.data[i + 1].images.fixed_height.url +
           '" data-state="on"  data-animate="' +
           ResArray.data[i + 1].images.fixed_height.url +
@@ -109,9 +114,40 @@ $(document).ready(function() {
       url: queryURL,
       method: "GET"
     }).then(function(response) {
+      console.log(response);
       ResArray = response;
       DisplayImages();
       $(".images").show();
     });
   }
+
+  $(document).on("click", ".favorites", function() {
+    var temp = [];
+    temp.push($(this).parent()[0].children[0].innerHTML);
+    temp.push($(this).parent()[0].nextElementSibling.children[0].innerHTML);
+    temp.push($(this).parent()[0].nextElementSibling.children[1].outerHTML);
+    console.log(temp);
+    favorite.push(temp);
+    console.log(favorite);
+  });
+  $("#myfav").on("click", function() {
+    $(".images").text("");
+    for (i = 0; i < favorite.length; i = i + 2) {
+      $(".images").append(
+        '<div class="row"><div class="col-md-6"><div class="card"><div class="card-header"><h2>' +
+          favorite[i][0] +
+          '</h2></div><div class="card-body"><h4>' +
+          favorite[i][1] +
+          "</h4>" +
+          favorite[i][2] +
+          '</div></div></div><div class="col-md-6"><div class="card"><div class="card-header"><h2>' +
+          favorite[i + 1][0] +
+          '</h2></div><div class="card-body"><h4>' +
+          favorite[i + 1][1] +
+          "</h4>" +
+          favorite[i + 1][2] +
+          "</div></div></div></div>"
+      );
+    }
+  });
 });
