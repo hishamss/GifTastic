@@ -9,7 +9,7 @@ ActiveTopic = "";
 offset = 0;
 count = 0;
 $(document).ready(function() {
-  // $(".images").hide();
+  $(".images").parent()[0].children[0].innerHTML = "";
   CreateButtons();
   function CreateButtons() {
     $(".main").empty();
@@ -25,11 +25,15 @@ $(document).ready(function() {
     IsTopicClicked = true;
     ActiveTopic = $(this).text();
     ApiRequest($(this).text(), offset);
+    $(".images").parent()[0].children[0].innerHTML = "";
   });
   function DisplayImages() {
-    for (i = 0; i < ResArray.data.length; i = i + 2) {
+    for (i = 0; i < ResArray.data.length; i++) {
+      if (i > 0 && i % 2 == 0) {
+        $(".images").append('<div class="w-100"></div>');
+      }
       $(".images").append(
-        '<div class="row"><div class="col-md-6"><div class="card"><div class="card-header"><h2>Rating: ' +
+        '<div class="col"><div class="card"><div class="card-header"><h2>Rating: ' +
           ResArray.data[i].rating.toUpperCase() +
           '</h2><button type="button" class="btn btn-secondary btn-sm favorites">Add to Favorit</button></div><div class="card-body"><h4>' +
           ResArray.data[i].title.toUpperCase() +
@@ -39,17 +43,7 @@ $(document).ready(function() {
           ResArray.data[i].images.fixed_height.url +
           '" data-still="' +
           ResArray.data[i].images.fixed_height_still.url +
-          '"/></div></div></div><div class="col-md-6"><div class="card"><div class="card-header"><h2>Rating: ' +
-          ResArray.data[i + 1].rating.toUpperCase() +
-          '</h2><button type="button" class="btn btn-secondary btn-sm favorites">Add to Favorit</button></div><div class="card-body"><h4>' +
-          ResArray.data[i + 1].title.toUpperCase() +
-          '</h4><img class="img-fluid img-thumbnail giphy-img" src="' +
-          ResArray.data[i + 1].images.fixed_height.url +
-          '" data-state="on"  data-animate="' +
-          ResArray.data[i + 1].images.fixed_height.url +
-          '" data-still="' +
-          ResArray.data[i + 1].images.fixed_height_still.url +
-          '"/></div></div></div></div>'
+          '"/></div></div></div>'
       );
     }
   }
@@ -91,6 +85,7 @@ $(document).ready(function() {
     if (IsTopicClicked) {
       offset = offset + 10;
       ApiRequest(ActiveTopic, offset);
+      $(".images").append('<div class="w-100"></div>');
     } else {
       alert("No GIFs to Add");
     }
@@ -128,25 +123,26 @@ $(document).ready(function() {
     temp.push($(this).parent()[0].nextElementSibling.children[1].outerHTML);
     console.log(temp);
     favorite.push(temp);
+    localStorage.setItem("favorite", JSON.stringify(favorite));
     console.log(favorite);
   });
   $("#myfav").on("click", function() {
+    IsTopicClicked = false;
+    $(".images").parent()[0].children[0].innerHTML = "My Favorites";
     $(".images").text("");
-    for (i = 0; i < favorite.length; i = i + 2) {
+    favorite = JSON.parse(localStorage.getItem("favorite"));
+    for (i = 0; i < favorite.length; i++) {
+      if (i > 0 && i % 2 == 0) {
+        $(".images").append('<div class="w-100"></div>');
+      }
       $(".images").append(
-        '<div class="row"><div class="col-md-6"><div class="card"><div class="card-header"><h2>' +
+        '<div class="col"><div class="card"><div class="card-header"><h2>' +
           favorite[i][0] +
           '</h2></div><div class="card-body"><h4>' +
           favorite[i][1] +
           "</h4>" +
           favorite[i][2] +
-          '</div></div></div><div class="col-md-6"><div class="card"><div class="card-header"><h2>' +
-          favorite[i + 1][0] +
-          '</h2></div><div class="card-body"><h4>' +
-          favorite[i + 1][1] +
-          "</h4>" +
-          favorite[i + 1][2] +
-          "</div></div></div></div>"
+          "</div></div></div>"
       );
     }
   });
