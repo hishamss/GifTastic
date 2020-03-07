@@ -35,7 +35,7 @@ $(document).ready(function() {
       $(".images").append(
         '<div class="col"><div class="card"><div class="card-header"><h2>Rating: ' +
           ResArray.data[i].rating.toUpperCase() +
-          '</h2><button type="button" class="btn btn-secondary btn-sm favorites">Add to Favorit</button></div><div class="card-body"><h4>' +
+          '</h2><button type="button" class="btn btn-secondary btn-sm favorites">Add To My Favorites</button></div><div class="card-body"><h4>' +
           ResArray.data[i].title.toUpperCase() +
           '</h4><img class="img-fluid img-thumbnail giphy-img" src="' +
           ResArray.data[i].images.fixed_height.url +
@@ -71,8 +71,12 @@ $(document).ready(function() {
       }).then(function(response) {
         if (response.data.length !== 0) {
           var newtopic = $("#AddMovie").val();
-          topics.push(newtopic);
-          CreateButtons();
+          if (!topics.includes(newtopic)) {
+            topics.push(newtopic);
+            CreateButtons();
+          } else {
+            alert("This Button Already Exists!");
+          }
         } else {
           alert("Not Valid Topic");
         }
@@ -149,6 +153,6 @@ $(document).ready(function() {
   $("#Clearmyfav").on("click", function() {
     localStorage.clear();
     $(".images").text("");
-    alert("My Favorites Has Been Cleared!");
+    alert("My Favorites has been cleared!");
   });
 });
