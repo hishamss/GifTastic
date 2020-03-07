@@ -146,4 +146,9 @@ $(document).ready(function() {
       );
     }
   });
+  $("#Clearmyfav").on("click", function() {
+    localStorage.clear();
+    $(".images").text("");
+    alert("My Favorites Has Been Cleared!");
+  });
 });
