@@ -35,7 +35,7 @@ $(document).ready(function() {
       $(".images").append(
         '<div class="col"><div class="card"><div class="card-header"><h2>Rating: ' +
           ResArray.data[i].rating.toUpperCase() +
-          '</h2><button type="button" class="btn btn-secondary btn-sm favorites">Add To My Favorites</button></div><div class="card-body"><h4>' +
+          '</h2><button type="button" class="btn btn-secondary btn-sm favorites" data-toggle="tooltip" data-placement="top" title="Add to My Favorite"><i class="fas fa-heart"></i></button></div><div class="card-body"><h4>' +
           ResArray.data[i].title.toUpperCase() +
           '</h4><img class="img-fluid img-thumbnail giphy-img" src="' +
           ResArray.data[i].images.fixed_height.url +

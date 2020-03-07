@@ -16,3 +16,12 @@ body {
 .card-body {
   height: 340px;
 }
+.form-group input {
+  display: inline-block !important;
+  height: 48px !important;
+  vertical-align: middle !important;
+  width: auto;
+}
+/* .form-group input::placeholder {
+  color: #b3b3b3;
+} */
