@@ -9,6 +9,13 @@ ActiveTopic = "";
 offset = 0;
 count = 0;
 $(document).ready(function() {
+  favorite = JSON.parse(localStorage.getItem("favorite"));
+  if (favorite == null) {
+    $("#FavCount").text(0);
+  } else {
+    $("#FavCount").text(favorite.length);
+  }
+
   $(".images").parent()[0].children[0].innerHTML = "";
   CreateButtons();
   function CreateButtons() {
@@ -113,7 +120,6 @@ $(document).ready(function() {
       url: queryURL,
       method: "GET"
     }).then(function(response) {
-      console.log(response);
       ResArray = response;
       DisplayImages();
       $(".images").show();
@@ -125,16 +131,20 @@ $(document).ready(function() {
     temp.push($(this).parent()[0].children[0].innerHTML);
     temp.push($(this).parent()[0].nextElementSibling.children[0].innerHTML);
     temp.push($(this).parent()[0].nextElementSibling.children[1].outerHTML);
-    console.log(temp);
+
     favorite.push(temp);
+    $("#FavCount").text(favorite.length);
     localStorage.setItem("favorite", JSON.stringify(favorite));
-    console.log(favorite);
   });
   $("#myfav").on("click", function() {
     IsTopicClicked = false;
     $(".images").parent()[0].children[0].innerHTML = "My Favorites";
     $(".images").text("");
     favorite = JSON.parse(localStorage.getItem("favorite"));
+    console.log(favorite);
+    if (!Array.isArray(favorite)) {
+      favorite = [];
+    }
     for (i = 0; i < favorite.length; i++) {
       if (i > 0 && i % 2 == 0) {
         $(".images").append('<div class="w-100"></div>');
@@ -152,7 +162,8 @@ $(document).ready(function() {
   });
   $("#Clearmyfav").on("click", function() {
     localStorage.clear();
+    favorite = [];
+    $("#FavCount").text(favorite.length);
     $(".images").text("");
-    alert("My Favorites has been cleared!");
   });
 });
