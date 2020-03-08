@@ -10,14 +10,16 @@ offset = 0;
 count = 0;
 $(document).ready(function() {
   favorite = JSON.parse(localStorage.getItem("favorite"));
-  if (favorite == null) {
+  if (!Array.isArray(favorite)) {
+    favorite = [];
     $("#FavCount").text(0);
   } else {
     $("#FavCount").text(favorite.length);
   }
-
+  // this will remove myfavorite header if my favorite button not clicked
   $(".images").parent()[0].children[0].innerHTML = "";
   CreateButtons();
+
   function CreateButtons() {
     $(".main").empty();
     for (topic of topics) {
@@ -66,7 +68,8 @@ $(document).ready(function() {
   });
   $("#SubBtn").on("click", function(event) {
     event.preventDefault();
-    if ($("#AddMovie").val() !== "") {
+    var newtopic = $("#AddMovie").val();
+    if (newtopic !== "") {
       var queryURL =
         "https://api.giphy.com/v1/gifs/search?api_key=4Oz89PXB8NoqCXfKwzRoFETCFIhc9bLQ&q=" +
         $("#AddMovie").val();
@@ -77,9 +80,9 @@ $(document).ready(function() {
         method: "GET"
       }).then(function(response) {
         if (response.data.length !== 0) {
-          var newtopic = $("#AddMovie").val();
           if (!topics.includes(newtopic)) {
             topics.push(newtopic);
+            console.log(topics);
             CreateButtons();
           } else {
             alert("This Button Already Exists!");
@@ -91,6 +94,8 @@ $(document).ready(function() {
     } else {
       alert("Pleaes type the name of the topic");
     }
+    // clear AddMovie text after we done
+    $("#AddMovie").val("");
   });
   $("#TenMore").on("click", function() {
     if (IsTopicClicked) {
@@ -142,6 +147,8 @@ $(document).ready(function() {
     $(".images").text("");
     favorite = JSON.parse(localStorage.getItem("favorite"));
     console.log(favorite);
+    // When the localstorage is empty, favorite will be null/ not array>> favorite.length will return
+    // error. the follwoing if to assign empty array in case it's null
     if (!Array.isArray(favorite)) {
       favorite = [];
     }
