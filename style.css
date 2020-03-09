@@ -3,7 +3,15 @@ body {
   margin: 0 0;
   padding: 5px;
   height: 100%;
+  font-family: "Permanent Marker", cursive;
+  background-color: #121212;
 }
+
+/* .main_cont {
+  
+  height: 100%;
+  padding: 5px 0;
+} */
 
 .main button {
   margin: auto 5px;
@@ -13,8 +21,19 @@ body {
   margin-bottom: 5px;
 }
 
+.card-header {
+  background-color: #9933ff;
+  color: #fff35c;
+}
+.card {
+  border: 5px solid #333636;
+  border-radius: 10px;
+}
+
 .card-body {
   height: 340px;
+  background-color: #ebe4e4;
+  color: #fc6666;
 }
 .form-group input {
   display: inline-block !important;
@@ -22,6 +41,32 @@ body {
   vertical-align: middle !important;
   width: auto;
 }
-/* .form-group input::placeholder {
-  color: #b3b3b3;
-} */
+
+.h_head {
+  float: left;
+}
+
+.favorites {
+  float: right;
+  background-color: #01fd9a !important;
+}
+
+#AddMovie {
+  background-color: #ebe4e4;
+}
+
+#AddMovie::placeholder {
+  color: #fc6666;
+}
+
+.btn-primary {
+  background-color: #6b61ff !important;
+}
+
+.btn-success {
+  background-color: #04ac69 !important;
+}
+
+#my_header {
+  color: #fc6666;
+}

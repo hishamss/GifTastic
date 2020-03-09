@@ -9,6 +9,7 @@ ActiveTopic = "";
 offset = 0;
 count = 0;
 $(document).ready(function() {
+  $("#AddMovie").val("");
   favorite = JSON.parse(localStorage.getItem("favorite"));
   if (!Array.isArray(favorite)) {
     favorite = [];
@@ -42,7 +43,7 @@ $(document).ready(function() {
         $(".images").append('<div class="w-100"></div>');
       }
       $(".images").append(
-        '<div class="col"><div class="card"><div class="card-header"><h2>Rating: ' +
+        '<div class="col"><div class="card"><div class="card-header"><h2 class="h_head">Rating: ' +
           ResArray.data[i].rating.toUpperCase() +
           '</h2><button type="button" class="btn btn-secondary btn-sm favorites" data-toggle="tooltip" data-placement="top" title="Add to My Favorite"><i class="fas fa-heart"></i></button></div><div class="card-body"><h4>' +
           ResArray.data[i].title.toUpperCase() +
@@ -136,10 +137,14 @@ $(document).ready(function() {
     temp.push($(this).parent()[0].children[0].innerHTML);
     temp.push($(this).parent()[0].nextElementSibling.children[0].innerHTML);
     temp.push($(this).parent()[0].nextElementSibling.children[1].outerHTML);
+    // to check if the gif is already in the favorites
+    if (!JSON.stringify(favorite).includes(JSON.stringify(temp))) {
+      favorite.push(temp);
+    }
 
-    favorite.push(temp);
     $("#FavCount").text(favorite.length);
     localStorage.setItem("favorite", JSON.stringify(favorite));
+    $(this).css("color", "#fc6666");
   });
   $("#myfav").on("click", function() {
     IsTopicClicked = false;

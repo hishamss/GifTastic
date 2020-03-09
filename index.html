@@ -23,6 +23,7 @@
       src="https://kit.fontawesome.com/4ce1ada840.js"
       crossorigin="anonymous"
     ></script>
+
     <script src="app.js"></script>
     <link
       rel="stylesheet"
@@ -30,43 +31,49 @@
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
+    <link
+      href="https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
     <title>GifTastic</title>
   </head>
   <body>
-    <div class="container text-center main"></div>
-    <br />
-    <div class="container text-center">
-      <form>
-        <div class="form-group">
-          <input
-            type="text"
-            class="form-control"
-            id="AddMovie"
-            placeholder="Add New Animal"
-          />
-          <button type="submit" id="SubBtn" class="btn btn-primary btn-lg">
-            <i class="fas fa-plus"></i>
-          </button>
-        </div>
-      </form>
-    </div>
-    <br />
-    <div class="container text-center">
-      <button type="button" id="TenMore" class="btn btn-primary btn-lg">
-        Add 10 More GIFs
-      </button>
-      <button type="button" id="myfav" class="btn btn-primary btn-lg">
-        My Favorites: <span id="FavCount"></span>
-      </button>
-      <button type="button" id="Clearmyfav" class="btn btn-primary btn-lg">
-        Clear My Favorites
-      </button>
-    </div>
-    <br />
-    <div class="container text-center">
-      <h1>My Favorites</h1>
-      <div class="row images"></div>
+    <div class="container text-center main_cont">
+      <div class="container text-center main"></div>
+      <br />
+      <div class="container text-center">
+        <form>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="AddMovie"
+              placeholder="New Topic"
+            />
+            <button type="submit" id="SubBtn" class="btn btn-primary btn-lg">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+      <br />
+      <div class="container text-center">
+        <button type="button" id="TenMore" class="btn btn-primary btn-lg">
+          Add 10 More GIFs
+        </button>
+        <button type="button" id="myfav" class="btn btn-primary btn-lg">
+          My Favorites: <span id="FavCount"></span>
+        </button>
+        <button type="button" id="Clearmyfav" class="btn btn-primary btn-lg">
+          Clear My Favorites
+        </button>
+      </div>
+      <br />
+      <div class="container text-center">
+        <h1 id="my_header">My Favorites</h1>
+        <div class="row images"></div>
+      </div>
     </div>
   </body>
 </html>
