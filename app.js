@@ -1,6 +1,4 @@
 topics = ["dog", "cat", "bird", "frog"];
-// still_images = [];
-// gif_images = [];
 ResArray = [];
 favorite = [];
 TenMoreTimes = 0;
@@ -10,7 +8,9 @@ offset = 0;
 count = 0;
 $(document).ready(function() {
   $("#AddMovie").val("");
+  // get the favorites from localstorge on page load
   favorite = JSON.parse(localStorage.getItem("favorite"));
+  // if localstorage is empty
   if (!Array.isArray(favorite)) {
     favorite = [];
     $("#FavCount").text(0);
