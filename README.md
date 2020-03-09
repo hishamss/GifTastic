@@ -9,7 +9,7 @@
 3. when the user clicks on the GIF it will pause when click back it will animate.
 4. if the user click on 'add 10 more' buttons while GIFs displayed on the page it will display 10 more GIFs related to the same topic of the GIFs already displayed. It will check if there's GIFs already displayed before adding 10 more otherwise the user will get an alert "no GIF to display"
 
-5. the user can type any topic in the text field and press the plus buttons to add new topic button
+5. the user can type any topic in the text field and press the plus buttons to add new topic button. User cannot add button for empty text also cannot add button for not valid topic (ex: sagsdgdsgd).
    ![new topic](step5.jpg)
 
 6. The user can click on the heart button on each GIF to add it to my favorites
