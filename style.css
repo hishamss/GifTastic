@@ -32,8 +32,9 @@ body {
 
 .card-body {
   height: 340px;
-  background-color: #ebe4e4;
-  color: #fc6666;
+  /* background-color: #ebe4e4; */
+  background-color: #00ccff;
+  color: #6b61ff;
 }
 .form-group input {
   display: inline-block !important;
@@ -68,5 +69,5 @@ body {
 }
 
 #my_header {
-  color: #fc6666;
+  color: #00ccff;
 }
