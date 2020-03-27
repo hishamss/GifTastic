@@ -1,5 +1,7 @@
 # GifTastic
 
+link: https://hishamss.github.io/GifTastic/
+
 1. the page starts with 4 tpics already displayed.
    ![main](step1.jpg)
 
